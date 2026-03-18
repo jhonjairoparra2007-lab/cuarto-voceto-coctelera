@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>La Botica del Pecado — Farmacia Clandestina · Cali</title>
+<link rel="stylesheet" href="botica.css"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Special+Elite&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+<!-- PAPER TEXTURE -->
+<div class="paper-overlay"></div>
+
+<!-- PRESCRIPTION PAD LOADER -->
+<div id="rxLoader">
+  <div class="rx-pad">
+    <div class="rx-header">
+      <div class="rx-logo">℞</div>
+      <div class="rx-clinic">
+        <span class="rx-clinic-name">LA BOTICA DEL PECADO</span>
+        <span class="rx-clinic-sub">Farmacia Clandestina · Est. 1921 · Cali</span>
+        <span class="rx-clinic-dr">Dr. Aurelio Pecado, Mixólogo Certificado</span>
+      </div>
+      <div class="rx-stamp-area">
+        <div class="rx-stamp" id="rxStamp">SELLANDO<br/>RECETA...</div>
+      </div>
+    </div>
+    <div class="rx-body">
+      <div class="rx-writing-line"></div>
+      <div class="rx-writing-line short"></div>
+      <div class="rx-writing-line"></div>
+      <div class="rx-writing-line med"></div>
+      <div class="rx-sig-block">
+        <span>Firma: ___________________</span>
+        <span>Fecha: ___________________</span>
+      </div>
+    </div>
+    <div class="rx-enter-btn-wrap">
+      <button class="rx-enter-btn" id="rxEnterBtn" onclick="enterBotica()">
+        ℞ RETIRAR MEDICAMENTO
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- CURSOR: DROPPER -->
+<div class="cursor-drop" id="cursorDrop">
+  <svg width="20" height="28" viewBox="0 0 20 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 2 C14 6 18 12 18 18 C18 23 14 26 10 26 C6 26 2 23 2 18 C2 12 6 6 10 2Z" fill="#2d5a27" opacity="0.85" stroke="#1a3a14" stroke-width="0.8"/>
+    <ellipse cx="10" cy="18" rx="5" ry="4" fill="rgba(255,255,255,0.2)"/>
+    <rect x="8" y="0" width="4" height="8" rx="2" fill="#1a3a14" opacity="0.7"/>
+  </svg>
+</div>
+
+<!-- AMBIENT PARTICLES -->
+<div class="dust-particles" id="dustParticles"></div>
+
+<!-- NAVBAR — looks like a pharmacy shelf label -->
+<nav class="nav-botica" id="navBotica">
+  <div class="nb-brand">
+    <span class="nb-rx">℞</span>
+    <div class="nb-name-block">
+      <span class="nb-name">LA BOTICA</span>
+      <span class="nb-sub">DEL PECADO</span>
+    </div>
+  </div>
+  <div class="nb-links">
+    <a href="#mostrador" class="nb-link">Mostrador</a>
+    <a href="#formulario" class="nb-link">Formulario</a>
+    <a href="#diagnostico" class="nb-link">Diagnóstico</a>
+    <a href="#gabinete" class="nb-link">Gabinete</a>
+    <a href="#domicilio" class="nb-link">Domicilio</a>
+    <a href="#receta" class="nb-link">Receta</a>
+  </div>
+  <button class="nb-cta" onclick="document.getElementById('receta').scrollIntoView({behavior:'smooth'})">
+    ℞ Pedir Receta
+  </button>
+  <button class="nb-ham" id="nbHam"><i class="fas fa-bars"></i></button>
+</nav>
+<div class="nb-mobile" id="nbMobile">
+  <a href="#mostrador" onclick="closeMobile()">Mostrador</a>
+  <a href="#formulario" onclick="closeMobile()">Formulario</a>
+  <a href="#diagnostico" onclick="closeMobile()">Diagnóstico</a>
+  <a href="#gabinete" onclick="closeMobile()">Gabinete</a>
+  <a href="#domicilio" onclick="closeMobile()">Domicilio</a>
+  <a href="#receta" onclick="closeMobile()">Receta</a>
+</div>
+
+<!-- ===== MOSTRADOR / HERO ===== -->
+<section class="section-hero" id="mostrador">
+  <!-- Big prescription background -->
+  <div class="hero-rx-bg">
+    <div class="hrx-watermark">℞</div>
+    <div class="hrx-lines">
+      <div class="hrx-line"></div><div class="hrx-line"></div>
+      <div class="hrx-line"></div><div class="hrx-line"></div>
+    </div>
+  </div>
+
+  <div class="hero-layout">
+    <div class="hero-left">
+      <!-- Doctor badge -->
+      <div class="doc-badge">
+        <span class="db-icon">⚕</span>
+        <div>
+          <span class="db-name">Dr. Aurelio Pecado</span>
+          <span class="db-title">Mixólogo Certificado · Cali, Colombia</span>
+        </div>
+      </div>
+
+      <h1 class="hero-title">
+        <span class="ht-pre">Bienvenido a</span>
+        <span class="ht-main">La Botica</span>
+        <span class="ht-del">del</span>
+        <span class="ht-pecado">PECADO</span>
+      </h1>
+
+      <div class="hero-divider">
+        <span class="hd-line"></span>
+        <span class="hd-ornament">✦ ℞ ✦</span>
+        <span class="hd-line"></span>
+      </div>
+
+      <p class="hero-lore">
+        <em>"Lo que el médico no puede curar, lo cura el bartender."</em><br/>
+        Desde 1921 preparamos las fórmulas magistrales que Cali necesita. Cada coctel es una receta cuidadosamente elaborada por nuestro equipo de farmacéuticos del sabor.
+      </p>
+
+      <div class="hero-hours">
+        <div class="hh-title">⚕ Horario de Atención</div>
+        <div class="hh-row"><span>Lun – Jue</span><span>6:00 PM — 1:00 AM</span></div>
+        <div class="hh-row"><span>Vie – Sáb</span><span>6:00 PM — 3:00 AM</span></div>
+        <div class="hh-row"><span>Domingo</span><span>5:00 PM — 12:00 AM</span></div>
+        <div class="hh-note">* Establecimiento sujeto a disponibilidad de medicamentos</div>
+      </div>
+
+      <div class="hero-btns">
+        <button class="btn-botica" onclick="document.getElementById('formulario').scrollIntoView({behavior:'smooth'})">
+          Ver Formulario
+        </button>
+        <button class="btn-ghost-botica" onclick="openDiagnostico()">
+          ⚕ Consultar al Dr. Pecado
+        </button>
+      </div>
+    </div>
+
+    <!-- Right: Big pill bottle / potion -->
+    <div class="hero-right">
+      <div class="bottle-display">
+        <svg viewBox="0 0 260 420" xmlns="http://www.w3.org/2000/svg" class="bottle-svg" id="bottleSvg">
+          <!-- Cap -->
+          <rect x="90" y="20" width="80" height="36" rx="8" fill="#1a3a14" stroke="#0f2a0a" stroke-width="1.5"/>
+          <rect x="95" y="28" width="70" height="4" rx="2" fill="rgba(255,255,255,0.1)"/>
+          <!-- Neck -->
+          <path d="M100 56 L80 96 L180 96 L160 56Z" fill="#2d5a27" stroke="#1a3a14" stroke-width="1"/>
+          <!-- Body -->
+          <rect x="60" y="96" width="140" height="260" rx="12" fill="#2d5a27" stroke="#1a3a14" stroke-width="1.5"/>
+          <!-- Glass shine -->
+          <path d="M72 110 L72 340 Q68 350 72 360" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="4" stroke-linecap="round"/>
+          <!-- Liquid -->
+          <rect x="62" y="180" width="136" height="174" rx="0 0 10 10" fill="#1a3a14" opacity="0.7">
+            <animate attributeName="y" values="180;175;180" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="height" values="174;179;174" dur="3s" repeatCount="indefinite"/>
+          </rect>
+          <!-- Bubbles -->
+          <circle cx="100" cy="290" r="5" fill="rgba(255,255,255,0.15)"><animate attributeName="cy" values="340;200;340" dur="2.5s" repeatCount="indefinite"/></circle>
+          <circle cx="140" cy="310" r="3" fill="rgba(255,255,255,0.1)"><animate attributeName="cy" values="350;210;350" dur="3.2s" repeatCount="indefinite"/></circle>
+          <circle cx="120" cy="320" r="4" fill="rgba(255,255,255,0.12)"><animate attributeName="cy" values="345;215;345" dur="2s" repeatCount="indefinite"/></circle>
+          <!-- Label on bottle -->
+          <rect x="72" y="136" width="116" height="100" rx="4" fill="#f5f0e0" stroke="#c8b870" stroke-width="1.5"/>
+          <rect x="76" y="140" width="108" height="92" rx="2" fill="none" stroke="#c8b870" stroke-width="0.5"/>
+          <text x="130" y="162" text-anchor="middle" font-family="Playfair Display, serif" font-size="10" font-weight="700" fill="#1a3a14">LA BOTICA</text>
+          <text x="130" y="174" text-anchor="middle" font-family="Playfair Display, serif" font-size="8" fill="#1a3a14">DEL PECADO</text>
+          <text x="130" y="188" text-anchor="middle" font-size="18" fill="#2d5a27">℞</text>
+          <text x="130" y="204" text-anchor="middle" font-family="serif" font-size="8" fill="#5a4a20">FÓRMULA MAGISTRAL</text>
+          <text x="130" y="216" text-anchor="middle" font-family="serif" font-size="7" fill="#8a7a40">Cali, Colombia · Est. 1921</text>
+          <!-- Dosage instructions below label -->
+          <rect x="72" y="248" width="116" height="36" rx="4" fill="#f5f0e0" stroke="#c8b870" stroke-width="1"/>
+          <text x="130" y="262" text-anchor="middle" font-family="serif" font-size="7" fill="#1a3a14">Tomar 1 dosis cada noche</text>
+          <text x="130" y="274" text-anchor="middle" font-family="serif" font-size="6" fill="#8a7a40" font-style="italic">Puede causar alegría excesiva</text>
+          <!-- Base -->
+          <rect x="50" y="354" width="160" height="20" rx="6" fill="#1a3a14" opacity="0.6"/>
+          <ellipse cx="130" cy="376" rx="70" ry="14" fill="#1a3a14" opacity="0.15"/>
+        </svg>
+        <!-- Orbiting pills -->
+        <div class="pill-orbit">
+          <div class="pill p1">💊</div>
+          <div class="pill p2">🌿</div>
+          <div class="pill p3">⚗️</div>
+          <div class="pill p4">🍋</div>
+        </div>
+      </div>
+      <!-- Stats as "dosage info" -->
+      <div class="bottle-stats">
+        <div class="bs-item"><span class="bsi-n" data-target="64">0</span><span class="bsi-l">Fórmulas</span></div>
+        <span class="bs-sep">·</span>
+        <div class="bs-item"><span class="bsi-n" data-target="103">0</span><span class="bsi-l">Años de Historia</span></div>
+        <span class="bs-sep">·</span>
+        <div class="bs-item"><span class="bsi-n" data-target="5">0</span><span class="bsi-l">Farmacéuticos</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FORMULARIO / MENÚ ===== -->
+<section class="section-paper" id="formulario">
+  <!-- Looks like a medical form -->
+  <div class="container">
+    <div class="form-header-rx">
+      <div class="fhr-left">
+        <div class="fhr-rx">℞</div>
+        <div class="fhr-info">
+          <span class="fhr-title">FORMULARIO DE MEDICAMENTOS</span>
+          <span class="fhr-sub">La Botica del Pecado · Cali, Colombia</span>
+        </div>
+      </div>
+      <div class="fhr-right">
+        <div class="fhr-stamp rotating-stamp">APROBADO<br/>POR EL DR.<br/>PECADO</div>
+      </div>
+    </div>
+
+    <!-- Category tabs as "departments" -->
+    <div class="dept-tabs" id="deptTabs"></div>
+
+    <!-- Menu as prescription entries -->
+    <div class="rx-entries" id="rxEntries"></div>
+  </div>
+</section>
+
+<!-- ===== DIAGNÓSTICO MODAL ===== -->
+<div class="diagnostico-modal" id="diagnosticoModal">
+  <div class="dx-wrap">
+    <div class="dx-pad">
+      <div class="dx-header">
+        <span class="dx-rx">℞</span>
+        <div>
+          <div class="dx-title">Consultorio del Dr. Pecado</div>
+          <div class="dx-sub">Diagnóstico de Sabor — Sin cita previa</div>
+        </div>
+        <button class="dx-close" onclick="closeDiagnostico()">✕</button>
+      </div>
+      <div class="dx-body" id="dxBody"></div>
+    </div>
+  </div>
+  <div class="dx-bg" onclick="closeDiagnostico()"></div>
+</div>
+
+<!-- ===== GABINETE / GALERÍA ===== -->
+<section class="section-green" id="gabinete">
+  <div class="container">
+    <div class="section-rx-header">
+      <div class="srh-code">DEPT. IV</div>
+      <h2 class="srh-title">El Gabinete<em> de Curiosidades</em></h2>
+      <div class="srh-ornament">✦ ℞ ✦</div>
+      <p class="srh-sub">El santuario donde ocurre la magia farmacéutica.</p>
+    </div>
+  </div>
+  <div class="cabinet-gallery" id="cabinetGallery"></div>
+  <div class="cab-dots" id="cabDots"></div>
+  <div class="cab-controls">
+    <button class="cab-btn" onclick="cabPrev()">◂</button>
+    <button class="cab-btn" onclick="cabNext()">▸</button>
+  </div>
+</section>
+
+<!-- ===== DOMICILIO ===== -->
+<section class="section-paper" id="domicilio">
+  <div class="container">
+    <div class="form-header-rx">
+      <div class="fhr-left">
+        <div class="fhr-rx" style="font-size:1.8rem">🛵</div>
+        <div class="fhr-info">
+          <span class="fhr-title">SERVICIO DE MEDICAMENTOS A DOMICILIO</span>
+          <span class="fhr-sub">Entrega en 30–50 minutos · Zonas: Granada, El Peñón, San Antonio, Versalles</span>
+        </div>
+      </div>
+      <div class="fhr-right">
+        <div class="fhr-stamp" style="font-size:0.55rem;letter-spacing:0.06em">ENVÍO<br/>GRATIS<br/>+$80K</div>
+      </div>
+    </div>
+
+    <!-- Info strips -->
+    <div class="dom-info-strips">
+      <div class="dis"><span>⏱</span><strong>30–50 min</strong><em>entrega</em></div>
+      <div class="dis"><span>🍹</span><strong>Mín. 2 dosis</strong><em>por pedido</em></div>
+      <div class="dis"><span>🛵</span><strong>Gratis +$80.000</strong><em>domicilio</em></div>
+      <div class="dis"><span>📍</span><strong>Granada · El Peñón</strong><em>San Antonio · Versalles</em></div>
+    </div>
+
+    <div class="dom-layout">
+      <!-- Pill catalog -->
+      <div class="dom-catalog-wrap">
+        <div class="dom-cat-title">℞ Selecciona tus Medicamentos</div>
+        <div class="dom-catalog" id="domCatalog"></div>
+        <!-- Cart / recibo -->
+        <div class="dom-recibo" id="domRecibo">
+          <div class="dr-title">RECIBO DE DESPACHO</div>
+          <div class="dr-items" id="drItems"><p class="rx-hint">— Ningún medicamento seleccionado —</p></div>
+          <div class="dr-totals" id="drTotals" style="display:none">
+            <div class="drt-row"><span>Subtotal</span><strong id="drtSub">$0</strong></div>
+            <div class="drt-row"><span>Domicilio</span><strong id="drtDom">$5.000</strong></div>
+            <div class="drt-row total-row"><span>TOTAL</span><strong id="drtTotal">$0</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Delivery form -->
+      <div class="dom-form-wrap">
+        <div class="dom-cat-title">℞ Datos de Entrega</div>
+        <div class="dom-fields">
+          <input type="text" id="domName" placeholder="Nombre del paciente" class="rx-input"/>
+          <input type="tel" id="domPhone" placeholder="Teléfono / WhatsApp" class="rx-input"/>
+          <input type="text" id="domAddr" placeholder="Dirección de entrega" class="rx-input"/>
+          <input type="text" id="domBarrio" placeholder="Barrio" class="rx-input"/>
+          <textarea id="domNote" placeholder="Indicaciones adicionales (apto, torre...)" class="rx-input" rows="2"></textarea>
+        </div>
+
+        <!-- PAYMENT — styled as prescription form check boxes -->
+        <div class="rx-payment-section">
+          <div class="rxp-title">℞ Método de Pago</div>
+          <div class="rxp-options">
+            <label class="rxp-opt" id="rxp-cash">
+              <input type="radio" name="domPay" value="cash" onchange="selectDomPay('cash')"/>
+              <span class="rxp-box"></span>
+              <span class="rxp-icon">💵</span>
+              <span class="rxp-name">Efectivo al recibir</span>
+            </label>
+            <label class="rxp-opt" id="rxp-nequi">
+              <input type="radio" name="domPay" value="nequi" onchange="selectDomPay('nequi')"/>
+              <span class="rxp-box"></span>
+              <span class="rxp-icon"><svg width="22" height="22" viewBox="0 0 22 22"><rect width="22" height="22" rx="5" fill="#6C0CE0"/><text x="11" y="16" text-anchor="middle" font-family="Arial Black" font-size="10" font-weight="900" fill="white">N</text></svg></span>
+              <span class="rxp-name">Nequi — 314 567 8901</span>
+            </label>
+            <label class="rxp-opt" id="rxp-daviplata">
+              <input type="radio" name="domPay" value="daviplata" onchange="selectDomPay('daviplata')"/>
+              <span class="rxp-box"></span>
+              <span class="rxp-icon"><svg width="22" height="22" viewBox="0 0 22 22"><rect width="22" height="22" rx="5" fill="#E30613"/><text x="11" y="15" text-anchor="middle" font-family="Arial Black" font-size="8" font-weight="900" fill="white">DV</text></svg></span>
+              <span class="rxp-name">Daviplata — 314 567 8901</span>
+            </label>
+            <label class="rxp-opt" id="rxp-transfer">
+              <input type="radio" name="domPay" value="transfer" onchange="selectDomPay('transfer')"/>
+              <span class="rxp-box"></span>
+              <span class="rxp-icon">🏦</span>
+              <span class="rxp-name">Transferencia / PSE</span>
+            </label>
+          </div>
+          <!-- Copy number panel -->
+          <div class="rxp-copy-panel" id="rxpCopyPanel" style="display:none">
+            <span class="rxpc-label" id="rxpcLabel">Número:</span>
+            <span class="rxpc-num">314 567 8901</span>
+            <button class="rxpc-copy" onclick="copyDomNum()">⎗ Copiar</button>
+          </div>
+          <div class="rxp-msg" id="rxpMsg"></div>
+        </div>
+
+        <button class="btn-botica full-btn" onclick="confirmDomicilio()">
+          🛵 Despachar Medicamentos
+        </button>
+        <div style="text-align:center;margin-top:10px">
+          <a href="https://wa.me/573145678901" target="_blank" class="wa-botica-btn">
+            <i class="fab fa-whatsapp"></i> Pedir por WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOM MODAL -->
+<div class="rx-modal" id="domModal">
+  <div class="rxm-scroll">
+    <div class="rxm-top"></div>
+    <div class="rxm-body">
+      <div class="rxm-rx">℞</div>
+      <div class="rxm-title">Pedido Despachado</div>
+      <div class="rxm-div">✦ ℞ ✦</div>
+      <p id="domModalText"></p>
+      <button class="btn-botica" onclick="closeDomModal()">Continuar</button>
+    </div>
+    <div class="rxm-bottom"></div>
+  </div>
+  <div class="rxm-bg" onclick="closeDomModal()"></div>
+</div>
+
+<!-- ===== RECETA / RESERVA ===== -->
+<section class="section-green" id="receta">
+  <div class="container">
+    <div class="section-rx-header light">
+      <div class="srh-code">DEPT. VI</div>
+      <h2 class="srh-title light">Receta<em> de Mesa</em></h2>
+      <div class="srh-ornament gold">✦ ℞ ✦</div>
+      <p class="srh-sub light">Complete el formulario para reservar su tratamiento en el establecimiento.</p>
+    </div>
+    <div class="receta-layout">
+      <!-- The form: looks like a real prescription pad -->
+      <div class="receta-pad">
+        <div class="rp-header">
+          <span class="rp-rx">℞</span>
+          <div class="rp-clinic">
+            <span>La Botica del Pecado</span>
+            <span>Dr. Aurelio Pecado · Cali</span>
+          </div>
+          <div class="rp-date-box">
+            <span>Fecha:</span>
+            <span id="rpDate">__/__/____</span>
+          </div>
+        </div>
+        <div class="rp-body">
+          <!-- Step I -->
+          <div class="rp-step active" id="rps1">
+            <div class="rps-title">I. Medicamento Principal (trago)</div>
+            <div class="med-pick" id="medPick"></div>
+          </div>
+          <!-- Step II -->
+          <div class="rp-step" id="rps2">
+            <div class="rps-title">II. Fecha de Tratamiento</div>
+            <input type="date" id="resDate" class="rx-input" style="margin-bottom:12px"/>
+            <div class="res-slots" id="resSlots"><p class="rx-hint">Selecciona una fecha</p></div>
+            <button class="rp-back" onclick="goStep(1)">← Anterior</button>
+          </div>
+          <!-- Step III -->
+          <div class="rp-step" id="rps3">
+            <div class="rps-title">III. Datos del Paciente</div>
+            <div class="rp-fields">
+              <input type="text" id="resName" placeholder="Nombre del paciente" class="rx-input"/>
+              <input type="tel" id="resPhone" placeholder="Teléfono" class="rx-input"/>
+              <input type="email" id="resEmail" placeholder="Correo" class="rx-input"/>
+              <select id="resOcasion" class="rx-input">
+                <option value="">Motivo de consulta (opcional)</option>
+                <option>🎂 Cumpleaños</option>
+                <option>💕 Aniversario</option>
+                <option>🥂 Celebración</option>
+                <option>🎉 Fiesta</option>
+                <option>🩺 Consulta de emergencia</option>
+              </select>
+              <textarea id="resNote" placeholder="Observaciones del médico..." class="rx-input" rows="2" style="grid-column:1/-1"></textarea>
+            </div>
+
+            <!-- PAYMENT -->
+            <div class="rx-payment-section" style="margin-top:16px">
+              <div class="rxp-title">℞ Forma de Pago al Llegar</div>
+              <div class="rxp-options">
+                <label class="rxp-opt" id="rxpr-cash">
+                  <input type="radio" name="resPay" value="cash" onchange="selectResPay('cash')"/>
+                  <span class="rxp-box"></span>
+                  <span class="rxp-icon">💵</span>
+                  <span class="rxp-name">Efectivo</span>
+                </label>
+                <label class="rxp-opt" id="rxpr-nequi">
+                  <input type="radio" name="resPay" value="nequi" onchange="selectResPay('nequi')"/>
+                  <span class="rxp-box"></span>
+                  <span class="rxp-icon"><svg width="20" height="20" viewBox="0 0 20 20"><rect width="20" height="20" rx="5" fill="#6C0CE0"/><text x="10" y="15" text-anchor="middle" font-family="Arial Black" font-size="9" font-weight="900" fill="white">N</text></svg></span>
+                  <span class="rxp-name">Nequi — 314 567 8901</span>
+                </label>
+                <label class="rxp-opt" id="rxpr-daviplata">
+                  <input type="radio" name="resPay" value="daviplata" onchange="selectResPay('daviplata')"/>
+                  <span class="rxp-box"></span>
+                  <span class="rxp-icon"><svg width="20" height="20" viewBox="0 0 20 20"><rect width="20" height="20" rx="5" fill="#E30613"/><text x="10" y="14" text-anchor="middle" font-family="Arial Black" font-size="7" font-weight="900" fill="white">DV</text></svg></span>
+                  <span class="rxp-name">Daviplata — 314 567 8901</span>
+                </label>
+                <label class="rxp-opt" id="rxpr-transfer">
+                  <input type="radio" name="resPay" value="transfer" onchange="selectResPay('transfer')"/>
+                  <span class="rxp-box"></span>
+                  <span class="rxp-icon">🏦</span>
+                  <span class="rxp-name">Transferencia</span>
+                </label>
+              </div>
+              <div class="rxp-copy-panel" id="rxprCopyPanel" style="display:none">
+                <span class="rxpc-label" id="rxprLabel">Número:</span>
+                <span class="rxpc-num">314 567 8901</span>
+                <button class="rxpc-copy" onclick="copyResNum()">⎗ Copiar</button>
+              </div>
+              <div class="rxp-msg" id="rxprMsg"></div>
+            </div>
+
+            <button class="btn-botica full-btn" onclick="sealReceta()" style="margin-top:16px">
+              ℞ Sellar Receta
+            </button>
+            <button class="rp-back" onclick="goStep(2)">← Anterior</button>
+          </div>
+        </div>
+        <!-- Signature line -->
+        <div class="rp-footer">
+          <div class="rpf-sig">Firma del Dr.: <span class="rpf-sig-line">Aurelio Pecado</span></div>
+          <div class="rpf-seal">VÁLIDA POR 24H</div>
+        </div>
+      </div>
+
+      <!-- Ticket / summary -->
+      <div class="receta-ticket">
+        <div class="rt-header">
+          <span class="rt-rx">℞</span>
+          <span>COMPROBANTE<br/>DE RESERVA</span>
+        </div>
+        <div class="rt-entries">
+          <div class="rte"><span>Medicamento</span><strong id="rt-med">—</strong></div>
+          <div class="rte"><span>Precio</span><strong id="rt-price">—</strong></div>
+          <div class="rte"><span>Fecha</span><strong id="rt-date">—</strong></div>
+          <div class="rte"><span>Hora</span><strong id="rt-time">—</strong></div>
+          <div class="rte"><span>Pago</span><strong id="rt-pay">—</strong></div>
+        </div>
+        <div class="rt-horario">
+          <div class="rth-title">⚕ Horario</div>
+          <div class="rth-row"><span>Lun–Jue</span><span>6PM–1AM</span></div>
+          <div class="rth-row"><span>Vie–Sáb</span><span>6PM–3AM</span></div>
+          <div class="rth-row"><span>Dom</span><span>5PM–12AM</span></div>
+        </div>
+        <div class="rt-addr">📍 Cra 4 #11N-60, Granada · Cali</div>
+        <a class="wa-botica-btn" href="https://wa.me/573145678901" target="_blank" style="display:flex;margin:14px 0">
+          <i class="fab fa-whatsapp"></i> Reservar por WhatsApp
+        </a>
+        <!-- Founders -->
+        <div class="rt-founders">
+          <div class="rtf-title">⚕ Los Fundadores</div>
+          <div class="rtf-row"><div class="rtf-av" style="border-color:#2d5a27">JJ</div><div><strong>Jhon Jairo Parra</strong><span>Farmacéutico Jefe & Fundador</span></div></div>
+          <div class="rtf-row"><div class="rtf-av" style="border-color:#8b1a1a">SB</div><div><strong>Sebastián Banguera</strong><span>Director del Laboratorio</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECETA MODAL -->
+<div class="rx-modal" id="recetaModal">
+  <div class="rxm-scroll">
+    <div class="rxm-top"></div>
+    <div class="rxm-body">
+      <div class="rxm-rx">℞</div>
+      <div class="rxm-title">Receta Sellada</div>
+      <div class="rxm-div">✦ ℞ ✦</div>
+      <p id="recetaModalText"></p>
+      <button class="btn-botica" onclick="closeRecetaModal()">Que aproveche</button>
+    </div>
+    <div class="rxm-bottom"></div>
+  </div>
+  <div class="rxm-bg" onclick="closeRecetaModal()"></div>
+</div>
+
+<!-- ===== UBICACIÓN ===== -->
+<section class="section-paper" id="ubicacion">
+  <div class="container">
+    <div class="form-header-rx">
+      <div class="fhr-left">
+        <div class="fhr-rx" style="font-size:1.5rem">📍</div>
+        <div class="fhr-info">
+          <span class="fhr-title">DIRECCIÓN DEL ESTABLECIMIENTO</span>
+          <span class="fhr-sub">La Botica del Pecado · Granada · Cali, Valle del Cauca</span>
+        </div>
+      </div>
+    </div>
+    <div class="ubi-layout">
+      <div class="ubi-contact">
+        <div class="uc-entry"><i class="fas fa-map-marker-alt"></i><div><strong>Dirección</strong><p>Cra 4 #11N-60, Granada<br/>Cali, Valle del Cauca</p></div></div>
+        <div class="uc-entry"><i class="fas fa-phone"></i><div><strong>Línea de Urgencias</strong><p>+57 314 567 8901</p></div></div>
+        <div class="uc-entry"><i class="fab fa-instagram"></i><div><strong>Redes</strong><p>@labotinadelpecado</p></div></div>
+        <div class="uc-entry"><i class="fab fa-whatsapp"></i><div><strong>WhatsApp</strong><p>+57 314 567 8901</p></div></div>
+        <a class="btn-botica" href="https://www.google.com/maps/dir/?api=1&destination=Cra+4+11N-60+Granada+Cali" target="_blank"><i class="fas fa-route"></i> Cómo llegar</a>
+      </div>
+      <div class="ubi-map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127500!2d-76.5225!3d3.4516!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e30a6f0cc4bb3f1%3A0x1f0fb5e952ae6168!2sCali%2C%20Valle%20del%20Cauca!5e0!3m2!1ses!2sco!4v1680000000000" width="100%" height="100%" style="border:0;" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer-botica">
+  <div class="fb-inner">
+    <div class="fb-brand">
+      <span class="fb-rx">℞</span>
+      <div>
+        <div class="fb-name">La Botica del Pecado</div>
+        <div class="fb-sub">Farmacia Clandestina · Cali · Est. 1921</div>
+      </div>
+    </div>
+    <p class="fb-lore">"Lo que el médico no receta, lo recetamos nosotros."<br/>Granada, Cali, Colombia.</p>
+    <div class="fb-social">
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-tiktok"></i></a>
+      <a href="#"><i class="fab fa-facebook"></i></a>
+      <a href="#"><i class="fab fa-whatsapp"></i></a>
+    </div>
+    <div class="fb-disclaimer">
+      * Los medicamentos de este establecimiento no son aprobados por el INVIMA.<br/>
+      Pueden causar: alegría espontánea, deseo de bailar y conversaciones profundas.<
+      <br/>© 2024 La Botica del Pecado · Todos los remedios reservados.
+    </div>
+  </div>
+</footer>
+
+<script src="botica.js"></script>
+</body>
+</html>
